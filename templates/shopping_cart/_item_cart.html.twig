@@ -1,0 +1,29 @@
+<div class="row p-2 m-2">
+	<div class="col">
+		<h5>
+			<p class="text-muted">
+				{{ item.product.title }}
+			</p>
+		</h5>
+		<p class="small m-auto">
+			{{ item.product.brand }}
+		</p>
+	</div>
+	<div class="col m-auto">
+		Quantité(s)
+		<input type="number" class="form-control" placeholder="1" value="{{item.quantity}}" step="1" min="1">
+	</div>
+	<div class="col m-auto d-flex flex-row-reverse">
+		<p>
+			{{ item.product.price }}€ HT
+		</p>
+	</div>
+</div>
+<div class="row p-2 m-2">
+
+	<div class="col my-auto d-flex flex-row-reverse">
+		<a class="text-muted btn">
+			<i class="fa fa-trash"></i>
+			Supprimer</a>
+	</div>
+</div>

@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<div class="container-xxl w-75">
+		<div class="row">
+			<div class="col">
+				<h2>Votre panier</h2>
+			</div>
+			<div class="col">
+				<span class="pull-right">(<strong>{{order.items | length }}</strong>) éléments</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9 my-3">
+				{% if order.items %}
+					<div class="card">
+						{% for item in order.items %}
+							{% include "shopping_cart/_item_cart.html.twig" %}
+						{% endfor %}
+					</div>
+				{% else %}
+					<p class="text-center text-muted">
+						Votre panier est vide.
+					</p>
+					<hr>
+
+				{% endif %}
+				<div class="row pull-right p-2">
+					<button class="btn btn-primary ">
+						<i class="fa fa fa-shopping-cart"></i>
+						Paiement</button>
+				</div>
+
+			</div>
+			<div class="col-md-3 my-3">
+				<div class="card p-2">
+					<h5>Récapitulatif de votre panier</h5>
+
+					<div class="row">
+						<div class="col">
+							<span class="fw-bold">Sous total HT :</span>
+						</div>
+						<div class="col">
+							<span>
+								{{order.getTotalHt ? order.getTotalHt|number_format(2, ',', ' ') : '0,00'}}€
+							</span>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col">
+							<span class="fw-bold">Tva :</span>
+						</div>
+						<div class="col">
+							<span>
+								{{order.getTva ? order.getTva|number_format(2, ',', ' ') : '0,00'}}€
+							</span>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col">
+							<span class="fw-bold">Total TTC :</span>
+						</div>
+						<div class="col">
+							<span class="font-bold">
+								{{order.getTotalTtc ? order.getTotalTtc|number_format(2, ',', ' ') : '0,00'}}€
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
