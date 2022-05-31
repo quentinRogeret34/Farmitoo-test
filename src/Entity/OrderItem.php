@@ -47,6 +47,7 @@ class OrderItem
 
     public function getTotalTtc(): int
     {
+        // TODO : prendre en compte le % de TVA
         return ($this->item->getPrice() * $this->quantity) *1.20;
     }
 

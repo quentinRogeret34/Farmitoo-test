@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 
+use Exception;
 
 class Order
 {
@@ -14,20 +15,21 @@ class Order
     protected $promotions;
 
 
-    /**
-     * Get the value of items
-     *
-     * @return  array
-     */ 
-    public function getItems()
-    {
-        return $this->items;
-        return $this->promotions;
-    }
+
 
     public function __construct()
     {
         $this->items = [];
+    }
+
+    /**
+     * Get the value of items
+     *
+     * @return  array
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 
     public function getTotalHt(): int
@@ -41,7 +43,7 @@ class Order
         return $totalPrice;
     }
 
-    public function getTotalTtc(): int
+    public function getSousTotalTtc(): int
     {
         $totalPrice = 0;
 
@@ -54,7 +56,7 @@ class Order
 
     public function getTva(): int
     {
-        return $this->getTotalTtc() - $this->getTotalHt();
+        return $this->getSousTotalTtc() - $this->getTotalHt();
     }
 
     public function addItems(Product $product, int $quantity): self
@@ -66,8 +68,51 @@ class Order
 
     public function addPromotions(Promotion $promotion): self
     {
-        $this->promotions[] = $promotion;
+        if ($promotion->isValid($this)) {
+            $this->promotions[] = $promotion;
 
-        return $this;
+            return $this;
+        }
+        throw new Exception("Impossibler d'appliquer la promotion", 1);
+    }
+
+    public function getMontantPromotions(): float
+    {
+        $totalPrice = 0;
+
+        foreach ($this->promotions as $promotion) {
+            $totalPrice += ($promotion->getReduction() * 100);
+        }
+
+        return $totalPrice;
+    }
+
+    public function getTotalTtc(): float
+    {
+        return ($this->getSousTotalTtc() + $this->getFraisDePort()) - $this->getMontantPromotions();
+    }
+
+    public function getFraisDePort(): float
+    {
+        $totalPrice = 0;
+
+        foreach ($this->promotions as $promotion) {
+            if ($promotion->getFreeDelivery()) {
+                $totalPrice += 0;
+            }
+        }
+
+        return $totalPrice;
+    }
+
+    public function getTotalItems(): int
+    {
+        $totalItems = 0;
+
+        foreach ($this->items as $itemOrder) {
+            $totalItems += $itemOrder->getQuantity();
+        }
+
+        return $totalItems;
     }
 }

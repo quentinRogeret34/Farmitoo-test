@@ -23,13 +23,13 @@ class MainController extends AbstractController
         $product2 = new Product('Nettoyant pour cuve', 5000, 'Farmitoo');
         $product3 = new Product('Piquet de clôture', 1000, 'Gallagher');
 
-        $promotion1 = new Promotion(50000, 8, false);
+        $promotion1 = new Promotion(50000, 8, false, 5);
 
         $order = (new Order())
-        ->addItems($product1, 1)
-        ->addItems($product2, 3)
-        ->addItems($product3, 5)
-        ->addPromotions($promotion1);
+            ->addItems($product1, 1)
+            ->addItems($product2, 3)
+            ->addItems($product3, 5)
+            ->addPromotions($promotion1);
 
         // Je passe une commande avec
         // Cuve à gasoil x1

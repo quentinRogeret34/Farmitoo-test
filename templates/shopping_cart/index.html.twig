@@ -48,7 +48,19 @@
 							</span>
 						</div>
 					</div>
-					<hr>
+					{% if order.getMontantPromotions > 0 %}
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold text-success">Promotions :</span>
+							</div>
+							<div class="col">
+								<span class="text-success">
+									-{{order.getMontantPromotions|number_format(2, ',', ' ')}}€
+								</span>
+							</div>
+						</div>
+					{% endif %}
+					<hr class="bg-success">
 					<div class="row">
 						<div class="col">
 							<span class="fw-bold">Tva :</span>
@@ -59,7 +71,7 @@
 							</span>
 						</div>
 					</div>
-					<hr>
+					<hr class="bg-success">
 					<div class="row">
 						<div class="col">
 							<span class="fw-bold">Total TTC :</span>
@@ -67,6 +79,21 @@
 						<div class="col">
 							<span class="font-bold">
 								{{order.getTotalTtc ? order.getTotalTtc|number_format(2, ',', ' ') : '0,00'}}€
+							</span>
+						</div>
+					</div>
+					<hr class="bg-success">
+					<div class="row">
+						<div class="col">
+							<span class="fw-bold">Frais de port :</span>
+						</div>
+						<div class="col">
+							<span class="font-bold">
+								{% if order.getFraisDePort %}
+									{{order.getFraisDePort|number_format(2, ',', ' ')}}€
+								{% else %}
+									Offert !
+								{% endif %}
 							</span>
 						</div>
 					</div>
