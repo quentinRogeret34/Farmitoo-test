@@ -96,10 +96,8 @@ class Order
     {
         $totalPrice = 0;
 
-        foreach ($this->promotions as $promotion) {
-            if ($promotion->getFreeDelivery()) {
-                $totalPrice += 0;
-            }
+        foreach ($this->items as $itemOrder) {
+            $totalPrice += $itemOrder->getProduct()->getBrand()->getFraisTransport($this);
         }
 
         return $totalPrice;

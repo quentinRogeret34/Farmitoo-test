@@ -3,9 +3,6 @@
 
 namespace App\Entity;
 
-use App\Service\TvaService;
-use Locale;
-
 
 class OrderItem
 {
@@ -24,7 +21,7 @@ class OrderItem
      */
     protected $tvaService;
 
-        /**
+    /**
      * @param int $quantity
      */
     protected $tva;
@@ -48,7 +45,7 @@ class OrderItem
     public function getTotalTtc(): int
     {
         // TODO : prendre en compte le % de TVA
-        return ($this->item->getPrice() * $this->quantity) *1.20;
+        return ($this->item->getPrice() * $this->quantity) * 1.20;
     }
 
     public function getTotalHt(): int

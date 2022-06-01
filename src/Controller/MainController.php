@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use Locale;
+use App\Entity\Farmitoo;
+use App\Entity\Gallagher;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\Promotion;
@@ -17,11 +18,12 @@ class MainController extends AbstractController
      */
     public function index(): Response
     {
+        $farmitoo = new Farmitoo();
+        $gallagher = new Gallagher();
 
-
-        $product1 = new Product('Cuve à gasoil', 250000, 'Farmitoo');
-        $product2 = new Product('Nettoyant pour cuve', 5000, 'Farmitoo');
-        $product3 = new Product('Piquet de clôture', 1000, 'Gallagher');
+        $product1 = new Product('Cuve à gasoil', 250000, $farmitoo);
+        $product2 = new Product('Nettoyant pour cuve', 5000, $farmitoo);
+        $product3 = new Product('Piquet de clôture', 1000, $gallagher);
 
         $promotion1 = new Promotion(50000, 8, false, 5);
 
@@ -38,9 +40,6 @@ class MainController extends AbstractController
 
         return $this->render('shopping_cart/index.html.twig', [
             'order' => $order,
-            'promotions' => [
-                $promotion1,
-            ],
         ]);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use phpDocumentor\Reflection\Types\Float_;
+use App\Entity\AbstractBrand;
+
 
 class Product
 {
@@ -17,7 +18,7 @@ class Product
     protected $price;
 
     /**
-     * @var string
+     * @var AbstractBrand
      */
     protected $brand;
 
@@ -26,7 +27,7 @@ class Product
      * @param int $price
      * @param string $brand
      */
-    public function __construct(string $title, int $price, string $brand)
+    public function __construct(string $title, int $price, AbstractBrand $brand)
     {
         $this->title = $title;
         $this->price = $price;
@@ -45,7 +46,7 @@ class Product
     /**
      * @return string
      */
-    public function getBrand(): string
+    public function getBrand(): AbstractBrand
     {
         return $this->brand;
     }
