@@ -14,7 +14,7 @@ abstract class AbstractBrand
     }
 
     abstract protected function getTva();
-    abstract protected function getFraisTransport(Order $order): ?int;
+    abstract protected function getMontantFraisTransport(Order $order): ?int;
 
     /**
      * Get the value of name

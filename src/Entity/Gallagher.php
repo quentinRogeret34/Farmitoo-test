@@ -19,12 +19,8 @@ class Gallagher extends AbstractBrand
         return 0.2;
     }
 
-    public function getFraisTransport(Order $order): int
+    public function getMontantFraisTransport(Order $order): int
     {
-        foreach ($order->getItems() as $order) {
-            if ($order->getProduct()->getBrand() == $this) {
-                return 15;
-            }
-        }
+        return 15;
     }
 }
