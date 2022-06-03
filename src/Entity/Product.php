@@ -44,7 +44,7 @@ class Product
     }
 
     /**
-     * @return string
+     * @return AbstractBrand
      */
     public function getBrand(): AbstractBrand
     {

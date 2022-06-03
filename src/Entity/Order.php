@@ -5,11 +5,12 @@ namespace App\Entity;
 
 use Exception;
 use phpDocumentor\Reflection\Types\AbstractList;
+use Symfony\Component\VarDumper\Cloner\AbstractCloner;
 
 class Order
 {
     /**
-     * @var array
+     * @var OrderItem[]
      */
     protected $items;
 
@@ -23,7 +24,7 @@ class Order
     /**
      * Get the value of items
      *
-     * @return  array
+     * @return  OrderItem[]
      */
     public function getItems()
     {
@@ -74,16 +75,21 @@ class Order
             ($this->getSousTotalTtc() + $this->getFraisDePort()) - $this->getMontantPromotions() : ($this->getSousTotalTtc() + $this->getFraisDePort());
     }
 
-    public function getFraisDePort(): float
+    public function getFraisDePort()
     {
-        // TODO : Séparé les items par marque et calculer les frais de port par marque
-        $totalPrice = 0;
+        $brandInOrder = [];
+        $montantFraisDePort = 0;
 
         foreach ($this->items as $itemOrder) {
-            $totalPrice += $itemOrder->getProduct()->getBrand()->getMontantFraisTransport($this);
+            !in_array($itemOrder->getProduct()->getBrand(), $brandInOrder) ?
+                array_push($brandInOrder, $itemOrder->getProduct()->getBrand()) : null;
         }
 
-        return $totalPrice;
+        foreach ($brandInOrder as $brand) {
+            $montantFraisDePort += $brand->getMontantFraisTransport($this);
+        }
+
+        return $montantFraisDePort;
     }
 
     public function getTotalItems(): int
