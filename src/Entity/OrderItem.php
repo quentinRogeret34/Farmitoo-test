@@ -16,16 +16,6 @@ class OrderItem
      */
     protected $quantity;
 
-    /**
-     * @param int $quantity
-     */
-    protected $tvaService;
-
-    /**
-     * @param int $quantity
-     */
-    protected $tva;
-
     public function __construct(Product $product, int $quantity)
     {
         $this->item = $product;
@@ -42,13 +32,12 @@ class OrderItem
         return $this->quantity;
     }
 
-    public function getTotalTtc(): int
+    public function getTotalTtc(): float
     {
-        // TODO : prendre en compte le % de TVA
-        return ($this->item->getPrice() * $this->quantity) * 1.20;
+        return ($this->item->getPrice() * $this->quantity) * $this->item->getBrand()->getTva();
     }
 
-    public function getTotalHt(): int
+    public function getTotalHt(): float
     {
         return $this->item->getPrice() * $this->quantity;
     }

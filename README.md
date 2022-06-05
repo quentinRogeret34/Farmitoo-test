@@ -62,5 +62,7 @@ Mais un choix judicieux des choses à tester.
 ## ROADMAP
 
 - [x] Développement interface
-- [ ] Développer les partenaires
-- [ ] Prise en compte des pays dans le calcul de la TVA
+- [x] Développer les partenaires
+- [x] Prise en compte des pays dans le calcul de la TVA
+- [x] Optimisation UX/UI
+- [ ] Test

@@ -11,19 +11,13 @@
 	</div>
 	<div class="col m-auto">
 		Quantité(s)
-		<input type="number" class="form-control" placeholder="1" value="{{item.quantity}}" step="1" min="1">
+		<input type="number" class="form-control" placeholder="1" value="{{item.quantity}}" step="1" min="1" disabled>
 	</div>
 	<div class="col d-flex flex-row-reverse">
+
 		<p class="my-auto">
+			<b>Prix :</b>
 			{{ item.product.price }}€ HT
 		</p>
-	</div>
-</div>
-<div class="row p-2 m-2">
-
-	<div class="col my-auto d-flex flex-row-reverse">
-		<a class="text-muted btn">
-			<i class="fa fa-trash"></i>
-			Supprimer</a>
 	</div>
 </div>

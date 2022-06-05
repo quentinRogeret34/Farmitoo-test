@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 
 class Promotion
 {
@@ -21,12 +22,24 @@ class Promotion
      */
     protected $freeDelivery;
 
+    /**
+     * @var int
+     */
     protected $minimumProduct;
 
+    /**
+     * @var DateTime
+     */
     protected $startingDate;
 
+    /**
+     * @var DateTime
+     */
     protected $endingDate;
 
+    /**
+     * @var int
+     */
     protected $usageNumber;
 
     /**
@@ -58,7 +71,6 @@ class Promotion
 
 
     /**
-     * Get the value of reduction
      *
      * @return  int
      */
@@ -77,8 +89,6 @@ class Promotion
 
 
     /**
-     * Get the value of freeDelivery
-     *
      * @return  bool
      */
     public function getFreeDelivery()

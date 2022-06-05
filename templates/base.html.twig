@@ -3,9 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
+			{% block title %}Farmitoo - test 🧑🏼‍💻
 			{% endblock %}
 		</title>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
@@ -18,7 +19,7 @@
 	<body>
 		<!-- Just an image -->
 		<nav class="navbar navbar-light bg-success p-2 mb-3 text-white">
-			Farmitoo
+			<img class="logo" src="https://d1lgrfe63m2189.cloudfront.net/build/common/images/logos/logo_farmitoo_horizontal_colors_black.6e6b9cfd97f5c87bca15029fed8515f5.svg" alt="Logo farmitoo"/>
 		</nav>
 		{% block body %}{% endblock %}
 	</body>

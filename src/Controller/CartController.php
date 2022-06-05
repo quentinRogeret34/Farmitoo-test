@@ -2,23 +2,32 @@
 
 namespace App\Controller;
 
-use App\Entity\Farmitoo;
-use App\Entity\Gallagher;
+use App\Entity\Pays;
 use App\Entity\Order;
 use App\Entity\Product;
+use App\Entity\Farmitoo;
+use App\Entity\Gallagher;
 use App\Entity\Promotion;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class MainController extends AbstractController
+class CartController extends AbstractController
 {
     /**
      * @Route("/", name="index")
      */
     public function index(): Response
     {
-        $farmitoo = new Farmitoo();
+
+        // Je passe une commande avec
+        // Cuve à gasoil x1
+        // Nettoyant pour cuve x3
+        // Piquet de clôture x5
+
+        $france = new Pays('FR');
+
+        $farmitoo = new Farmitoo($france);
         $gallagher = new Gallagher();
 
         $product1 = new Product('Cuve à gasoil', 250000, $farmitoo);
@@ -33,13 +42,16 @@ class MainController extends AbstractController
             ->addItems($product3, 5)
             ->addPromotions($promotion1);
 
-        // Je passe une commande avec
-        // Cuve à gasoil x1
-        // Nettoyant pour cuve x3
-        // Piquet de clôture x5
-
         return $this->render('shopping_cart/index.html.twig', [
             'order' => $order,
         ]);
+    }
+
+    /**
+     * @Route("/payment", name="payment")
+     */
+    public function payment(): Response
+    {
+        return $this->render('payments/index.html.twig');
     }
 }

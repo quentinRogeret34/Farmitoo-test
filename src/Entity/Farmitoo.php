@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\AbstractBrand;
+use App\Entity\Pays;
 
 
 class Farmitoo extends AbstractBrand
@@ -11,15 +12,11 @@ class Farmitoo extends AbstractBrand
     protected $name = 'Farmitoo';
 
     private $SEUIL_PRODUIT = 3;
+    private $DEFAULT_TVA = 1.2;
 
-    public function __construct()
+    public function getTva(): float
     {
-        parent::__construct();
-    }
-
-    public function getTva()
-    {
-        return 0.2;
+        return $this->pays ? $this->pays->getTva() : $this->DEFAULT_TVA;
     }
 
     public function getMontantFraisTransport(Order $order): int

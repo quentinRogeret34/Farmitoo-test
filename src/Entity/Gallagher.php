@@ -8,15 +8,11 @@ class Gallagher extends AbstractBrand
 {
 
     protected $name = 'Gallagher';
+    private $DEFAULT_TVA = 1.2;
 
-    public function __construct()
+    public function getTva(): float
     {
-        parent::__construct();
-    }
-
-    public function getTva()
-    {
-        return 0.2;
+        return $this->pays ? $this->pays->getTva() : $this->DEFAULT_TVA;
     }
 
     public function getMontantFraisTransport(Order $order): int

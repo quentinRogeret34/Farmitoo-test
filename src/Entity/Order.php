@@ -4,8 +4,6 @@
 namespace App\Entity;
 
 use Exception;
-use phpDocumentor\Reflection\Types\AbstractList;
-use Symfony\Component\VarDumper\Cloner\AbstractCloner;
 
 class Order
 {
@@ -14,6 +12,9 @@ class Order
      */
     protected $items;
 
+    /**
+     * @var Promotion[]
+     */
     protected $promotions;
 
     public function __construct()
@@ -22,8 +23,6 @@ class Order
     }
 
     /**
-     * Get the value of items
-     *
      * @return  OrderItem[]
      */
     public function getItems()
@@ -53,7 +52,7 @@ class Order
         return $totalPrice;
     }
 
-    public function getTva(): int
+    public function getMontantTva(): int
     {
         return $this->getSousTotalTtc() - $this->getTotalHt();
     }

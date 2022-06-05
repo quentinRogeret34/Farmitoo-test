@@ -2,18 +2,22 @@
 
 namespace App\Entity;
 
+use App\Entity\Pays;
 
 abstract class AbstractBrand
 {
 
     protected $name;
 
-    public function __construct()
+    protected $pays;
+
+    public function __construct(Pays $pays = null)
     {
         $this->name = $this->getName();
+        $this->pays = $pays;
     }
 
-    abstract protected function getTva();
+    abstract protected function getTva(): float;
     abstract protected function getMontantFraisTransport(Order $order): ?int;
 
     /**
