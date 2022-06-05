@@ -69,12 +69,7 @@ class Promotion
         $this->usageNumber = $usageNumber;
     }
 
-
-    /**
-     *
-     * @return  int
-     */
-    public function getReduction()
+    public function getReduction(): int
     {
         return $this->reduction;
     }
@@ -88,10 +83,7 @@ class Promotion
     }
 
 
-    /**
-     * @return  bool
-     */
-    public function getFreeDelivery()
+    public function getFreeDelivery(): bool
     {
         return $this->freeDelivery;
     }

@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  www:
+    build: php
+    container_name: www_docker_symfony
+    ports:
+      - "8741:80"
+    volumes:
+      - ./php/vhosts:/etc/apache2/sites-enabled
+      - ./:/var/www/test
+    restart: always
+    networks:
+      - dev
+    entrypoint: sh entrypoint.sh
+
+networks:
+  dev:

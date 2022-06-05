@@ -13,6 +13,7 @@ class Farmitoo extends AbstractBrand
 
     private $SEUIL_PRODUIT = 3;
     private $DEFAULT_TVA = 1.2;
+    private $PRIX_TRANSPORT = 15;
 
     public function getTva(): float
     {
@@ -24,8 +25,8 @@ class Farmitoo extends AbstractBrand
         $items_number = $order->getTotalItemsByBrand($this);
 
         if ($items_number % $this->SEUIL_PRODUIT == 0) {
-            return ($items_number / $this->SEUIL_PRODUIT) * 15;
+            return ($items_number / $this->SEUIL_PRODUIT) * $this->PRIX_TRANSPORT;
         }
-        return (floor(($items_number / $this->SEUIL_PRODUIT) + 1)) * 15;
+        return (floor(($items_number / $this->SEUIL_PRODUIT) + 1)) * $this->PRIX_TRANSPORT;
     }
 }

@@ -13,7 +13,7 @@ class Product
     protected $title;
 
     /**
-     * @var int
+     * @var float
      */
     protected $price;
 
@@ -52,7 +52,7 @@ class Product
     }
 
     /**
-     * @return string
+     * @return Float
      */
     public function getPrice(): Float
     {

@@ -74,7 +74,7 @@ class Order
             ($this->getSousTotalTtc() + $this->getFraisDePort()) - $this->getMontantPromotions() : ($this->getSousTotalTtc() + $this->getFraisDePort());
     }
 
-    public function getFraisDePort()
+    public function getFraisDePort(): float
     {
         $brandInOrder = [];
         $montantFraisDePort = 0;
@@ -132,7 +132,7 @@ class Order
         throw new Exception("Impossibler d'appliquer la promotion", 1);
     }
 
-    public function hasPromotion()
+    public function hasPromotion(): bool
     {
         return !empty($this->promotions);
     }

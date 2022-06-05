@@ -18,20 +18,18 @@ class Pays
     {
         switch ($this->getName()) {
             case 'FR':
-                return 1.75;
+                return 1.20;
             case 'BE':
             case 'LU':
             case 'NL':
             case 'DE':
                 return 1.19;
-            case 'AT':
-                return 1.20;
             default:
                 throw new Exception('Pays inconnu');
         }
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
