@@ -23,19 +23,19 @@ class FarmitooTest extends TestCase
 
     public function testGetTva()
     {
-        $this->assertEquals(1.20, $this->farmitoo->getTva());
-        $this->assertEquals(1.19, $this->farmitooWithPays->getTva());
+        $this->assertEquals(1.20, $this->farmitoo->getVat());
+        $this->assertEquals(1.19, $this->farmitooWithPays->getVat());
     }
 
-    public function testGetMontantFraisTransport()
+    public function testgetAmountTransportCosts()
     {
         $order = new Order();
         $order->addItems(new Product('Nettoyant pour cuve', 5000, $this->farmitoo), 3);
 
-        $this->assertEquals(15, $this->farmitoo->getMontantFraisTransport($order));
+        $this->assertEquals(15, $this->farmitoo->getAmountTransportCosts($order));
 
         $order->addItems(new Product('Nettoyant pour cuve', 1000, $this->farmitoo), 1);
 
-        $this->assertEquals(30, $this->farmitoo->getMontantFraisTransport($order));
+        $this->assertEquals(30, $this->farmitoo->getAmountTransportCosts($order));
     }
 }

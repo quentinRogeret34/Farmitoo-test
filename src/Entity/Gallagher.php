@@ -8,14 +8,14 @@ class Gallagher extends AbstractBrand
 {
 
     protected $name = 'Gallagher';
-    private $DEFAULT_TVA = 1.20;
+    private $DEFAULT_VAT = 1.20;
 
-    public function getTva(): float
+    public function getVat(): float
     {
-        return $this->pays ? $this->pays->getTva() : $this->DEFAULT_TVA;
+        return $this->pays ? $this->pays->getVat() : $this->DEFAULT_VAT;
     }
 
-    public function getMontantFraisTransport(Order $order): int
+    public function getAmountTransportCosts(Order $order): int
     {
         return 15;
     }

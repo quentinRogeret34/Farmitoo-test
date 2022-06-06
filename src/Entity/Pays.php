@@ -14,7 +14,7 @@ class Pays
         $this->name = $name;
     }
 
-    public function getTva()
+    public function getVat()
     {
         switch ($this->getName()) {
             case 'FR':

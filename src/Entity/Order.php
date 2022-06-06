@@ -30,10 +30,10 @@ class Order
 
     public function getTotalHt(): int
     {
-        return $this->getSousTotalHt() -  $this->getMontantPromotions();
+        return $this->getSubtotalHt() -  $this->getAmountPromotions();
     }
 
-    public function getSousTotalHt(): int
+    public function getSubtotalHt(): int
     {
         $totalPrice = 0;
 
@@ -43,16 +43,16 @@ class Order
         return $totalPrice;
     }
 
-    public function getMontantTva(): int
+    public function getVatAmount(): int
     {
         $pourcentageTvaTotal = 0;
         foreach ($this->getItems() as $item) {
-            $pourcentageTvaTotal += ($item->getProduct()->getBrand()->getTva() * $item->getQuantity());
+            $pourcentageTvaTotal += ($item->getProduct()->getBrand()->getVat() * $item->getQuantity());
         }
         return $this->getTotalHt() * (($pourcentageTvaTotal / $this->getTotalItems()) - 1);
     }
 
-    public function getMontantPromotions(): float
+    public function getAmountPromotions(): float
     {
         $totalPrice = 0;
 
@@ -63,12 +63,12 @@ class Order
         return $totalPrice;
     }
 
-    public function getTotalTtc(): float
+    public function getAmountTtc(): float
     {
-        return $this->getMontantTva() + $this->getMontantFraisDePort() + $this->getTotalHt();
+        return $this->getVatAmount() + $this->getAmountTransportCosts() + $this->getTotalHt();
     }
 
-    public function getMontantFraisDePort(): float
+    public function getAmountTransportCosts(): float
     {
 
         if ($this->isFreeDelivery()) {
@@ -83,7 +83,7 @@ class Order
         }
 
         foreach ($brandInOrder as $brand) {
-            $montantFraisDePort += $brand->getMontantFraisTransport($this);
+            $montantFraisDePort += $brand->getAmountTransportCosts($this);
         }
 
         return $montantFraisDePort;
@@ -133,7 +133,7 @@ class Order
         throw new Exception("Impossible d'appliquer la promotion");
     }
 
-    public function removePromotions(Promotion $promotion): self
+    public function removePromotion(Promotion $promotion): self
     {
         if (in_array($promotion, $this->promotions)) {
             unset($this->promotions[array_search($promotion, $this->promotions)]);

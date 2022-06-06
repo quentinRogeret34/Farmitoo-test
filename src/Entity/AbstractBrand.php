@@ -17,12 +17,9 @@ abstract class AbstractBrand
         $this->pays = $pays;
     }
 
-    abstract public function getTva(): float;
-    abstract protected function getMontantFraisTransport(Order $order): ?int;
+    abstract public function getVat(): float;
+    abstract protected function getAmountTransportCosts(Order $order): ?int;
 
-    /**
-     * Get the value of name
-     */
     public function getName()
     {
         return $this->name;

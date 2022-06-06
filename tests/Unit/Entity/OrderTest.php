@@ -32,32 +32,32 @@ class OrderTest extends TestCase
     }
 
 
-    public function testGetMontantFraisTransport()
+    public function testGetAmountTransportCosts()
     {
-        $this->assertEquals(45, $this->order->getMontantFraisDePort());
+        $this->assertEquals(45, $this->order->getAmountTransportCosts());
         $this->order->addPromotion(new Promotion(null, null, true));
-        $this->assertEquals(0, $this->order->getMontantFraisDePort());
+        $this->assertEquals(0, $this->order->getAmountTransportCosts());
     }
 
-    public function testGetMontantTva()
+    public function testGetVatAmount()
     {
-        $this->assertEquals(54000.00, $this->order->getMontantTva());
+        $this->assertEquals(54000.00, $this->order->getVatAmount());
         $this->order->addPromotion(new Promotion(8, null, false));
-        $this->assertEquals(53840.00, $this->order->getMontantTva());
+        $this->assertEquals(53840.00, $this->order->getVatAmount());
     }
 
-    public function testTotalTtc()
+    public function testGetAmountTtc()
     {
         $promotion = new Promotion(8, null, false);
-        $this->assertEquals(324045.00, $this->order->getTotalTtc());
+        $this->assertEquals(324045.00, $this->order->getAmountTtc());
         $this->order->addPromotion($promotion);
-        $this->assertEquals(323085.00, $this->order->getTotalTtc());
+        $this->assertEquals(323085.00, $this->order->getAmountTtc());
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Impossible d'appliquer la promotion");
         $this->order->addPromotion(new Promotion(10, 400000));
 
         $this->order->removePromotion($promotion);
-        $this->assertEquals(324045.00, $this->order->getTotalTtc());
+        $this->assertEquals(324045.00, $this->order->getAmountTtc());
     }
 }

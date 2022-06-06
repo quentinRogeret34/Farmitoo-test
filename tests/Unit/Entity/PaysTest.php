@@ -16,14 +16,14 @@ class PaysTest extends TestCase
 
     public function testGetTva()
     {
-        $this->assertEquals(1.19, $this->belgique->getTva());
-        $this->assertEquals(1.2, $this->france->getTva());
+        $this->assertEquals(1.19, $this->belgique->getVat());
+        $this->assertEquals(1.2, $this->france->getVat());
     }
 
     public function testException()
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("La TVA n'est pas définie pour ce pays");
-        (new Pays('XX'))->getTva();
+        (new Pays('XX'))->getVat();
     }
 }

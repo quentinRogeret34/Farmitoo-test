@@ -23,19 +23,19 @@ class GallagherTest extends TestCase
 
     public function testGetTva()
     {
-        $this->assertEquals(1.20, $this->gallagher->getTva());
-        $this->assertEquals(1.19, $this->gallagherWithPays->getTva());
+        $this->assertEquals(1.20, $this->gallagher->getVat());
+        $this->assertEquals(1.19, $this->gallagherWithPays->getVat());
     }
 
-    public function testGetMontantFraisTransport()
+    public function testGetAmountTransportCosts()
     {
         $order = new Order();
         $order->addItems(new Product('Piquet de clôture', 5000, $this->gallagher), 3);
 
-        $this->assertEquals(15, $this->gallagher->getMontantFraisTransport($order));
+        $this->assertEquals(15, $this->gallagher->getAmountTransportCosts($order));
 
         $order->addItems(new Product('Piquet de clôture', 1000, $this->gallagher), 1);
 
-        $this->assertEquals(15, $this->gallagher->getMontantFraisTransport($order));
+        $this->assertEquals(15, $this->gallagher->getAmountTransportCosts($order));
     }
 }

@@ -40,7 +40,7 @@
 						</div>
 						<div class="col">
 							<span>
-								{{order.getSousTotalHt ? order.getSousTotalHt|number_format(2, ',', ' ') : '0,00'}}€
+								{{order.getSubtotalHt ? order.getSubtotalHt|number_format(2, ',', ' ') : '0,00'}}€
 							</span>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 							</div>
 							<div class="col">
 								<span class="text-success">
-									-{{order.getMontantPromotions|number_format(2, ',', ' ')}}€
+									-{{order.getAmountPromotions|number_format(2, ',', ' ')}}€
 								</span>
 							</div>
 						</div>
@@ -77,7 +77,7 @@
 						</div>
 						<div class="col">
 							<span>
-								{{order.getMontantTva ? order.getMontantTva|number_format(2, ',', ' ') : '0,00'}}€
+								{{order.getVatAmount ? order.getVatAmount|number_format(2, ',', ' ') : '0,00'}}€
 							</span>
 						</div>
 					</div>
@@ -87,8 +87,8 @@
 						</div>
 						<div class="col">
 							<span class="font-bold">
-								{% if order.getMontantFraisDePort %}
-									{{order.getMontantFraisDePort|number_format(2, ',', ' ')}}€
+								{% if order.getAmountTransportCosts %}
+									{{order.getAmountTransportCosts|number_format(2, ',', ' ')}}€
 								{% else %}
 									Offert !
 								{% endif %}
@@ -102,7 +102,7 @@
 						</div>
 						<div class="col">
 							<span class="font-bold">
-								{{order.getTotalTtc ? order.getTotalTtc|number_format(2, ',', ' ') : '0,00'}}€
+								{{order.getAmountTtc ? order.getAmountTtc|number_format(2, ',', ' ') : '0,00'}}€
 							</span>
 						</div>
 					</div>

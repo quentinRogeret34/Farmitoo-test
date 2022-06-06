@@ -3,30 +3,28 @@
 namespace App\Entity;
 
 use App\Entity\AbstractBrand;
-use App\Entity\Pays;
-
 
 class Farmitoo extends AbstractBrand
 {
 
     protected $name = 'Farmitoo';
 
-    private $SEUIL_PRODUIT = 3;
-    private $DEFAULT_TVA = 1.2;
-    private $PRIX_TRANSPORT = 15;
+    private $PRODUIT_THRESHOLD = 3;
+    private $DEFAULT_VAT = 1.2;
+    private $TRANSPORT_PRICE = 15;
 
-    public function getTva(): float
+    public function getVat(): float
     {
-        return $this->pays ? $this->pays->getTva() : $this->DEFAULT_TVA;
+        return $this->pays ? $this->pays->getVat() : $this->DEFAULT_VAT;
     }
 
-    public function getMontantFraisTransport(Order $order): int
+    public function getAmountTransportCosts(Order $order): int
     {
         $items_number = $order->getTotalItemsByBrand($this);
 
-        if ($items_number % $this->SEUIL_PRODUIT == 0) {
-            return ($items_number / $this->SEUIL_PRODUIT) * $this->PRIX_TRANSPORT;
+        if ($items_number % $this->PRODUIT_THRESHOLD == 0) {
+            return ($items_number / $this->PRODUIT_THRESHOLD) * $this->TRANSPORT_PRICE;
         }
-        return (floor(($items_number / $this->SEUIL_PRODUIT) + 1)) * $this->PRIX_TRANSPORT;
+        return (floor(($items_number / $this->PRODUIT_THRESHOLD) + 1)) * $this->TRANSPORT_PRICE;
     }
 }
