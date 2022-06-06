@@ -17,7 +17,7 @@
 
 		<p class="my-auto">
 			<b>Prix :</b>
-			{{ item.product.price }}€ HT
+			{{ (item.product.price * item.quantity)|number_format(2, ',', ' ')}}€ HT
 		</p>
 	</div>
 </div>

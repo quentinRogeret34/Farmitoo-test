@@ -25,7 +25,7 @@ class Pays
             case 'DE':
                 return 1.19;
             default:
-                throw new Exception('Pays inconnu');
+                throw new Exception("La TVA n'est pas définie pour ce pays");
         }
     }
 

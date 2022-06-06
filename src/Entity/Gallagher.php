@@ -8,7 +8,7 @@ class Gallagher extends AbstractBrand
 {
 
     protected $name = 'Gallagher';
-    private $DEFAULT_TVA = 1.2;
+    private $DEFAULT_TVA = 1.20;
 
     public function getTva(): float
     {

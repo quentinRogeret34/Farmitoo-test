@@ -5,14 +5,30 @@ namespace App\Tests\Unit\Entity;
 
 
 use App\Entity\Product;
+use App\Entity\Farmitoo;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
 {
+    private $product;
+
+    public function setUp(): void
+    {
+        $this->product = new Product('title', 100, new Farmitoo());
+    }
+
     public function testGetTitle()
     {
-        $product = new Product('Cuve à gasoil', 100, 'Farmitoo');
+        $this->assertEquals('title', $this->product->getTitle());
+    }
 
-        $this->assertSame('Cuve à gasoil', $product->getTitle());
+    public function testGetBrand()
+    {
+        $this->assertInstanceOf(Farmitoo::class, $this->product->getBrand());
+    }
+
+    public function testGetPrice()
+    {
+        $this->assertEquals(100, $this->product->getPrice());
     }
 }

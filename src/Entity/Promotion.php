@@ -43,17 +43,17 @@ class Promotion
     protected $usageNumber;
 
     /**
-     * @param int $minAmount
-     * @param int $reduction
+     * @param int|null $reduction
+     * @param int|null $minAmount
      * @param bool $freeDelivery
-     * @param int $minimumProduct
-     * @param \DateTime $startingDate
-     * @param \DateTime $endingDate
-     * @param int $usageNumber    
+     * @param int|null $minimumProduct
+     * @param DateTime|null $startingDate
+     * @param DateTime|null $endingDate
+     * @param int|null $usageNumber
      */
     public function __construct(
+        int $reduction = null,
         int $minAmount = null,
-        int $reduction,
         bool $freeDelivery = false,
         int $minimumProduct = null,
         \DateTime $startingDate = null,
@@ -69,9 +69,39 @@ class Promotion
         $this->usageNumber = $usageNumber;
     }
 
-    public function getReduction(): int
+    public function getReduction(): ?int
     {
         return $this->reduction;
+    }
+
+    public function getFreeDelivery(): ?bool
+    {
+        return $this->freeDelivery;
+    }
+
+    public function getUsageNumber(): ?int
+    {
+        return $this->usageNumber;
+    }
+
+    public function getMinAmount(): ?int
+    {
+        return $this->minAmount;
+    }
+
+    public function getStartingDate(): ?DateTime
+    {
+        return $this->startingDate;
+    }
+
+    public function getEndingDate(): ?DateTime
+    {
+        return $this->endingDate;
+    }
+
+    public function getMinimumProduct(): ?int
+    {
+        return $this->minimumProduct;
     }
 
     public function isValid(Order $order): bool
@@ -80,12 +110,6 @@ class Promotion
             $this->isValidMinimumProduct($order) &&
             $this->isValidDate() &&
             $this->isValidUsageNumber();
-    }
-
-
-    public function getFreeDelivery(): bool
-    {
-        return $this->freeDelivery;
     }
 
     public function isValidMinimumAmount(Order $order): bool
@@ -110,10 +134,10 @@ class Promotion
 
     public function isValidUsageNumber(): bool
     {
-        if ($this->usageNumber === null) {
+        if ($this->getUsageNumber() === null) {
             return true;
         }
 
-        return $this->usageNumber > 0;
+        return $this->getUsageNumber() > 0;
     }
 }

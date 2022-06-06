@@ -4,6 +4,7 @@
 namespace App\Entity;
 
 use Exception;
+use App\Entity\Promotion;
 
 class Order
 {
@@ -22,46 +23,40 @@ class Order
         $this->items = [];
     }
 
-    /**
-     * @return  OrderItem[]
-     */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }
 
     public function getTotalHt(): int
     {
+        return $this->getSousTotalHt() -  $this->getMontantPromotions();
+    }
+
+    public function getSousTotalHt(): int
+    {
         $totalPrice = 0;
 
         foreach ($this->items as $itemOrder) {
             $totalPrice += $itemOrder->getTotalHt();
         }
-
-        return $totalPrice;
-    }
-
-    public function getSousTotalTtc(): int
-    {
-        $totalPrice = 0;
-
-        foreach ($this->items as $itemOrder) {
-            $totalPrice += $itemOrder->getTotalTtc();
-        }
-
         return $totalPrice;
     }
 
     public function getMontantTva(): int
     {
-        return $this->getSousTotalTtc() - $this->getTotalHt();
+        $pourcentageTvaTotal = 0;
+        foreach ($this->getItems() as $item) {
+            $pourcentageTvaTotal += ($item->getProduct()->getBrand()->getTva() * $item->getQuantity());
+        }
+        return $this->getTotalHt() * (($pourcentageTvaTotal / $this->getTotalItems()) - 1);
     }
 
     public function getMontantPromotions(): float
     {
         $totalPrice = 0;
 
-        foreach ($this->promotions as $promotion) {
+        foreach ($this->getPromotions() as $promotion) {
             $totalPrice += ($promotion->getReduction() * 100);
         }
 
@@ -70,12 +65,15 @@ class Order
 
     public function getTotalTtc(): float
     {
-        return $this->hasPromotion() ?
-            ($this->getSousTotalTtc() + $this->getFraisDePort()) - $this->getMontantPromotions() : ($this->getSousTotalTtc() + $this->getFraisDePort());
+        return $this->getMontantTva() + $this->getMontantFraisDePort() + $this->getTotalHt();
     }
 
-    public function getFraisDePort(): float
+    public function getMontantFraisDePort(): float
     {
+
+        if ($this->isFreeDelivery()) {
+            return 0;
+        }
         $brandInOrder = [];
         $montantFraisDePort = 0;
 
@@ -122,18 +120,47 @@ class Order
         return $this;
     }
 
-    public function addPromotions(Promotion $promotion): self
+    /**
+     * @throws Exception
+     */
+    public function addPromotion(Promotion $promotion): self
     {
         if ($promotion->isValid($this)) {
             $this->promotions[] = $promotion;
 
             return $this;
         }
-        throw new Exception("Impossibler d'appliquer la promotion", 1);
+        throw new Exception("Impossible d'appliquer la promotion");
+    }
+
+    public function removePromotions(Promotion $promotion): self
+    {
+        if (in_array($promotion, $this->promotions)) {
+            unset($this->promotions[array_search($promotion, $this->promotions)]);
+
+            return $this;
+        }
+        throw new Exception("Impossible de supprimer la promotion");
     }
 
     public function hasPromotion(): bool
     {
         return !empty($this->promotions);
+    }
+
+    public function isFreeDelivery(): bool
+    {
+
+        foreach ($this->getPromotions() as $promotion) {
+            if ($promotion->isValid($this) && $promotion->getFreeDelivery()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getPromotions(): array
+    {
+        return $this->promotions ?: [];
     }
 }

@@ -1,3 +1,22 @@
+# Farmitoo - test 🧑🏼‍💻
+
+### lancement :
+
+- J'ai choisit d'utiliser Docker pour le projet, il faut donc lancer : `docker-compose up --build``
+- L'URL du projet est : http://localhost:8741
+
+### Choix de conception back :
+
+- J'ai décidé d'utiliser une l'abstraction concernant les marques des produits, cela permet de plus tard pouvoir ajouter facilement de nouvelle marque avec des règles de calcul de TVA et de frais de port précise sur la marque
+
+- Concernant les promotions, j'ai estimé que les promotions s'appliquaient sur l'ensemble du panier.
+
+- Concernant la TVA, si le pays n'est pas indiqué au moment de l'initialisation de marque, c'est la TVA "par défaut" qui est appliquée
+
+### Choix de conception front :
+
+- J'ai utilisé le Bootstrap, je l'ai installé en tant que lib mais l'utilisation d'un CDN aurait été plus judicieux
+
 # TEST
 
 Ceci est le repository pour le test technique de Farmitoo.
@@ -58,11 +77,3 @@ Au niveau global, sera évalué :
 
 L'objectif n'est pas un code coverage de 100% !
 Mais un choix judicieux des choses à tester.
-
-## ROADMAP
-
-- [x] Développement interface
-- [x] Développer les partenaires
-- [x] Prise en compte des pays dans le calcul de la TVA
-- [x] Optimisation UX/UI
-- [ ] Test

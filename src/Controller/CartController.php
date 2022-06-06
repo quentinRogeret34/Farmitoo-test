@@ -34,13 +34,13 @@ class CartController extends AbstractController
         $product2 = new Product('Nettoyant pour cuve', 5000, $farmitoo);
         $product3 = new Product('Piquet de clôture', 1000, $gallagher);
 
-        $promotion1 = new Promotion(50000, 8, false, 5);
+        $promotion1 = new Promotion(8, 5000, false, 5);
 
         $order = (new Order())
             ->addItems($product1, 1)
             ->addItems($product2, 3)
             ->addItems($product3, 5)
-            ->addPromotions($promotion1);
+            ->addPromotion($promotion1);
 
         return $this->render('shopping_cart/index.html.twig', [
             'order' => $order,

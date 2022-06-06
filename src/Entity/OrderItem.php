@@ -32,11 +32,6 @@ class OrderItem
         return $this->quantity;
     }
 
-    public function getTotalTtc(): float
-    {
-        return ($this->item->getPrice() * $this->quantity) * $this->item->getBrand()->getTva();
-    }
-
     public function getTotalHt(): float
     {
         return $this->item->getPrice() * $this->quantity;

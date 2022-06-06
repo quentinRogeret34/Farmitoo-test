@@ -40,7 +40,7 @@
 						</div>
 						<div class="col">
 							<span>
-								{{order.getTotalHt ? order.getTotalHt|number_format(2, ',', ' ') : '0,00'}}€
+								{{order.getSousTotalHt ? order.getSousTotalHt|number_format(2, ',', ' ') : '0,00'}}€
 							</span>
 						</div>
 					</div>
@@ -52,6 +52,20 @@
 							<div class="col">
 								<span class="text-success">
 									-{{order.getMontantPromotions|number_format(2, ',', ' ')}}€
+								</span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold">Sous total HT :
+									<i>Après remise
+									</i>
+								</span>
+							</div>
+							<div class="col">
+								<span>
+									{{order.getTotalHt ? order.getTotalHt|number_format(2, ',', ' ') : '0,00'}}€
 								</span>
 							</div>
 						</div>
@@ -73,8 +87,8 @@
 						</div>
 						<div class="col">
 							<span class="font-bold">
-								{% if order.getFraisDePort %}
-									{{order.getFraisDePort|number_format(2, ',', ' ')}}€
+								{% if order.getMontantFraisDePort %}
+									{{order.getMontantFraisDePort|number_format(2, ',', ' ')}}€
 								{% else %}
 									Offert !
 								{% endif %}
