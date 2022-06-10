@@ -8,15 +8,10 @@ class Gallagher extends AbstractBrand
 {
 
     protected $name = 'Gallagher';
-    private $DEFAULT_VAT = 1.20;
-
-    public function getVat(): float
-    {
-        return $this->pays ? $this->pays->getVat() : $this->DEFAULT_VAT;
-    }
+    private const TRANSPORT_COSTS = 15;
 
     public function getAmountTransportCosts(Order $order): int
     {
-        return 15;
+        return self::TRANSPORT_COSTS;
     }
 }

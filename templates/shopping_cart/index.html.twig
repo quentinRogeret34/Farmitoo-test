@@ -77,7 +77,7 @@
 						</div>
 						<div class="col">
 							<span>
-								{{order.getVatAmount ? order.getVatAmount|number_format(2, ',', ' ') : '0,00'}}€
+								{{vatAmount ? vatAmount|number_format(2, ',', ' ') : '0,00'}}€
 							</span>
 						</div>
 					</div>
@@ -87,8 +87,8 @@
 						</div>
 						<div class="col">
 							<span class="font-bold">
-								{% if order.getAmountTransportCosts %}
-									{{order.getAmountTransportCosts|number_format(2, ',', ' ')}}€
+								{% if orderTransportService.getAmountTransportCosts(order) %}
+									{{orderTransportService.getAmountTransportCosts(order)|number_format(2, ',', ' ')}}€
 								{% else %}
 									Offert !
 								{% endif %}
@@ -102,7 +102,7 @@
 						</div>
 						<div class="col">
 							<span class="font-bold">
-								{{order.getAmountTtc ? order.getAmountTtc|number_format(2, ',', ' ') : '0,00'}}€
+								{{orderPriceService.getAmountTtc(order) ? orderPriceService.getAmountTtc(order)|number_format(2, ',', ' ') : '0,00'}}€
 							</span>
 						</div>
 					</div>

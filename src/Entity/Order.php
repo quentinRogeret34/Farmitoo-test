@@ -8,14 +8,8 @@ use App\Entity\Promotion;
 
 class Order
 {
-    /**
-     * @var OrderItem[]
-     */
-    protected $items;
 
-    /**
-     * @var Promotion[]
-     */
+    protected $items;
     protected $promotions;
 
     public function __construct()
@@ -43,15 +37,6 @@ class Order
         return $totalPrice;
     }
 
-    public function getVatAmount(): int
-    {
-        $pourcentageTvaTotal = 0;
-        foreach ($this->getItems() as $item) {
-            $pourcentageTvaTotal += ($item->getProduct()->getBrand()->getVat() * $item->getQuantity());
-        }
-        return $this->getTotalHt() * (($pourcentageTvaTotal / $this->getTotalItems()) - 1);
-    }
-
     public function getAmountPromotions(): float
     {
         $totalPrice = 0;
@@ -61,32 +46,6 @@ class Order
         }
 
         return $totalPrice;
-    }
-
-    public function getAmountTtc(): float
-    {
-        return $this->getVatAmount() + $this->getAmountTransportCosts() + $this->getTotalHt();
-    }
-
-    public function getAmountTransportCosts(): float
-    {
-
-        if ($this->isFreeDelivery()) {
-            return 0;
-        }
-        $brandInOrder = [];
-        $montantFraisDePort = 0;
-
-        foreach ($this->items as $itemOrder) {
-            !in_array($itemOrder->getProduct()->getBrand(), $brandInOrder) ?
-                array_push($brandInOrder, $itemOrder->getProduct()->getBrand()) : null;
-        }
-
-        foreach ($brandInOrder as $brand) {
-            $montantFraisDePort += $brand->getAmountTransportCosts($this);
-        }
-
-        return $montantFraisDePort;
     }
 
     public function getTotalItems(): int
@@ -133,6 +92,9 @@ class Order
         throw new Exception("Impossible d'appliquer la promotion");
     }
 
+    /**
+     * @throws Exception
+     */
     public function removePromotion(Promotion $promotion): self
     {
         if (in_array($promotion, $this->promotions)) {

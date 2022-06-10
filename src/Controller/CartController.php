@@ -8,6 +8,9 @@ use App\Entity\Product;
 use App\Entity\Farmitoo;
 use App\Entity\Gallagher;
 use App\Entity\Promotion;
+use App\Service\Order\OrderPriceService;
+use App\Service\Order\OrderTransportService;
+use App\Service\Order\OrderVatService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,8 +20,11 @@ class CartController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
-    {
+    public function index(
+        OrderVatService $orderVatService,
+        OrderTransportService $orderTransportService,
+        OrderPriceService $orderPriceService
+    ): Response {
 
         // Je passe une commande avec
         // Cuve à gasoil x1
@@ -28,7 +34,7 @@ class CartController extends AbstractController
         $france = new Pays('FR');
 
         $farmitoo = new Farmitoo($france);
-        $gallagher = new Gallagher();
+        $gallagher = new Gallagher($france);
 
         $product1 = new Product('Cuve à gasoil', 250000, $farmitoo);
         $product2 = new Product('Nettoyant pour cuve', 5000, $farmitoo);
@@ -42,8 +48,12 @@ class CartController extends AbstractController
             ->addItems($product3, 5)
             ->addPromotion($promotion1);
 
+
         return $this->render('shopping_cart/index.html.twig', [
             'order' => $order,
+            'vatAmount' => $orderVatService->getVatAmount($order),
+            'orderTransportService' => $orderTransportService,
+            'orderPriceService' => $orderPriceService,
         ]);
     }
 

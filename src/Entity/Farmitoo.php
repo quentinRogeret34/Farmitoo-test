@@ -9,22 +9,16 @@ class Farmitoo extends AbstractBrand
 
     protected $name = 'Farmitoo';
 
-    private $PRODUIT_THRESHOLD = 3;
-    private $DEFAULT_VAT = 1.2;
-    private $TRANSPORT_PRICE = 15;
-
-    public function getVat(): float
-    {
-        return $this->pays ? $this->pays->getVat() : $this->DEFAULT_VAT;
-    }
+    private const PRODUIT_THRESHOLD = 3;
+    private const TRANSPORT_PRICE = 15;
 
     public function getAmountTransportCosts(Order $order): int
     {
         $items_number = $order->getTotalItemsByBrand($this);
 
-        if ($items_number % $this->PRODUIT_THRESHOLD == 0) {
-            return ($items_number / $this->PRODUIT_THRESHOLD) * $this->TRANSPORT_PRICE;
+        if ($items_number % self::PRODUIT_THRESHOLD == 0) {
+            return ($items_number / self::PRODUIT_THRESHOLD) * self::TRANSPORT_PRICE;
         }
-        return (floor(($items_number / $this->PRODUIT_THRESHOLD) + 1)) * $this->TRANSPORT_PRICE;
+        return (floor(($items_number / self::PRODUIT_THRESHOLD) + 1)) * self::TRANSPORT_PRICE;
     }
 }
