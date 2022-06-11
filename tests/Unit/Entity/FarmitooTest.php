@@ -21,12 +21,6 @@ class FarmitooTest extends TestCase
         $this->assertEquals('Farmitoo', $this->farmitoo->getName());
     }
 
-    public function testGetTva()
-    {
-        $this->assertEquals(1.20, $this->farmitoo->getVat());
-        $this->assertEquals(1.19, $this->farmitooWithPays->getVat());
-    }
-
     public function testgetAmountTransportCosts()
     {
         $order = new Order();

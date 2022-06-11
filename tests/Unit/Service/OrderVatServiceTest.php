@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Tests\Unit\Entity;
+namespace App\Service\Order;
 
 use App\Entity\Pays;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\Farmitoo;
 use App\Entity\Gallagher;
+use App\Service\Order\OrderVatService;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Entity\Promotion;
-use Exception;
-use PHPUnit\Framework\TestCase;
 
-class OrderTest extends TestCase
+class OrderVatServiceTest extends KernelTestCase
 {
+    private $orderVatService;
+
     public function setUp(): void
     {
-
         $france = new Pays('FR');
 
         $farmitoo = new Farmitoo($france);
-        $gallagher = new Gallagher();
-
+        $gallagher = new Gallagher($france);
         $product1 = new Product('Cuve à gasoil', 250000, $farmitoo);
         $product2 = new Product('Nettoyant pour cuve', 5000, $farmitoo);
         $product3 = new Product('Piquet de clôture', 1000, $gallagher);
@@ -29,10 +29,15 @@ class OrderTest extends TestCase
             ->addItems($product1, 1)
             ->addItems($product2, 3)
             ->addItems($product3, 5);
+
+        self::bootKernel();
+        $this->orderVatService = self::$container->get(OrderVatService::class);
     }
 
-    public function testGetTotalHt()
+    public function testGetVatAmount()
     {
-        $this->assertEquals(270000, $this->order->getTotalHt());
+        $this->assertEquals(54000.00, $this->orderVatService->getVatAmount($this->order));
+        $this->order->addPromotion(new Promotion(8, null, false));
+        $this->assertEquals(53840.00, $this->orderVatService->getVatAmount($this->order));
     }
 }

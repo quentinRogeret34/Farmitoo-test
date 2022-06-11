@@ -10,7 +10,7 @@ class Gallagher extends AbstractBrand
     protected $name = 'Gallagher';
     private const TRANSPORT_COSTS = 15;
 
-    public function getAmountTransportCosts(Order $order): int
+    public function getAmountTransportCosts(): int
     {
         return self::TRANSPORT_COSTS;
     }

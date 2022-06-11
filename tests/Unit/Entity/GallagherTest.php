@@ -21,12 +21,6 @@ class GallagherTest extends TestCase
         $this->assertEquals('Gallagher', $this->gallagher->getName());
     }
 
-    public function testGetTva()
-    {
-        $this->assertEquals(1.20, $this->gallagher->getVat());
-        $this->assertEquals(1.19, $this->gallagherWithPays->getVat());
-    }
-
     public function testGetAmountTransportCosts()
     {
         $order = new Order();

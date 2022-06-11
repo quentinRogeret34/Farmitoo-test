@@ -5,6 +5,7 @@ namespace App\Entity;
 class Pays
 {
     private $name;
+    private $vat;
 
     public function __construct($name)
     {

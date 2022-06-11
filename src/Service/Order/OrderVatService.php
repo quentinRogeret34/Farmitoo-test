@@ -18,7 +18,9 @@ class OrderVatService
     {
         $pourcentageTvaTotal = 0;
         foreach ($order->getItems() as $item) {
-            $pourcentageTvaTotal += ($this->paysVatService->getVat($item->getProduct()->getBrand()->getPays()) * $item->getQuantity());
+            $pourcentageTvaTotal += ($this->paysVatService->getVat(
+                $item->getProduct()->getBrand()->getPays()
+            ) * $item->getQuantity());
         }
         return $order->getTotalHt() * (($pourcentageTvaTotal / $order->getTotalItems()) - 1);
     }

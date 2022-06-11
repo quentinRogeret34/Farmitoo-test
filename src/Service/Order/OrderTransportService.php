@@ -8,10 +8,10 @@ class OrderTransportService
 {
     public function getAmountTransportCosts(Order $order): float
     {
-
         if ($order->isFreeDelivery()) {
             return 0;
         }
+
         $brandInOrder = [];
         $montantFraisDePort = 0;
 

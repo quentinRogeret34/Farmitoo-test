@@ -64,7 +64,7 @@ class Order
         $totalItems = 0;
 
         foreach ($this->items as $itemOrder) {
-            if ($itemOrder->getProduct()->getBrand()->getName() == $brand->getName()) {
+            if ($itemOrder->getProduct()->getBrand() == $brand) {
                 $totalItems += $itemOrder->getQuantity();
             }
         }
