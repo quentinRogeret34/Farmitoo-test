@@ -5,7 +5,7 @@ namespace App\Tests\Unit\Entity;
 
 
 use App\Entity\Product;
-use App\Entity\Farmitoo;
+use App\Entity\Brand\Farmitoo;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase

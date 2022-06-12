@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use Exception;
 use App\Entity\Promotion;
+use App\Entity\Brand\AbstractBrand;
 
 class Order
 {

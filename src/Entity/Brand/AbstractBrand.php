@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Brand;
 
 use App\Entity\Pays;
 

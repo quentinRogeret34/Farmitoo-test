@@ -5,7 +5,7 @@ namespace App\Tests\Unit\Entity;
 use App\Entity\Pays;
 use App\Entity\Order;
 use App\Entity\Product;
-use App\Entity\Gallagher;
+use App\Entity\Brand\Gallagher;
 use PHPUnit\Framework\TestCase;
 
 class GallagherTest extends TestCase

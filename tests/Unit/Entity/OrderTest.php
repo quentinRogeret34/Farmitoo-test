@@ -5,10 +5,9 @@ namespace App\Tests\Unit\Entity;
 use App\Entity\Pays;
 use App\Entity\Order;
 use App\Entity\Product;
-use App\Entity\Farmitoo;
-use App\Entity\Gallagher;
+use App\Entity\Brand\Farmitoo;
+use App\Entity\Brand\Gallagher;
 use App\Entity\Promotion;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 class OrderTest extends TestCase

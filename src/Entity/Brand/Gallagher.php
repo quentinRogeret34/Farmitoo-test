@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Brand;
 
-use App\Entity\AbstractBrand;
+use App\Entity\Brand\AbstractBrand;
 
 class Gallagher extends AbstractBrand
 {

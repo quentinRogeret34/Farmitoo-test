@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\AbstractBrand;
+use App\Entity\Brand\AbstractBrand;
 
 
 class Product
