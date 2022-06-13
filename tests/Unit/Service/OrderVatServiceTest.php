@@ -10,6 +10,7 @@ use App\Entity\Brand\Gallagher;
 use App\Service\Order\OrderVatService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Entity\Promotion;
+use App\Entity\Vat\VatCountry;
 
 class OrderVatServiceTest extends KernelTestCase
 {
@@ -17,10 +18,10 @@ class OrderVatServiceTest extends KernelTestCase
 
     public function setUp(): void
     {
-        $france = new Pays('FR');
+        $vatFrance = new VatCountry(1.20);
 
-        $farmitoo = new Farmitoo($france);
-        $gallagher = new Gallagher($france);
+        $farmitoo = new Farmitoo($vatFrance);
+        $gallagher = new Gallagher($vatFrance);
         $product1 = new Product('Cuve à gasoil', 250000, $farmitoo);
         $product2 = new Product('Nettoyant pour cuve', 5000, $farmitoo);
         $product3 = new Product('Piquet de clôture', 1000, $gallagher);

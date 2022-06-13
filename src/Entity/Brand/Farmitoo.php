@@ -4,8 +4,9 @@ namespace App\Entity\Brand;
 
 use App\Entity\Order;
 use App\Entity\Brand\AbstractBrand;
+use App\Entity\Vat\VatInterface;
 
-class Farmitoo extends AbstractBrand
+class Farmitoo extends AbstractBrand implements VatInterface
 {
 
     protected $name = 'Farmitoo';

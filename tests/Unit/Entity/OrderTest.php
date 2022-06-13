@@ -5,9 +5,10 @@ namespace App\Tests\Unit\Entity;
 use App\Entity\Pays;
 use App\Entity\Order;
 use App\Entity\Product;
-use App\Entity\Brand\Farmitoo;
-use App\Entity\Brand\Gallagher;
 use App\Entity\Promotion;
+use App\Entity\Brand\Farmitoo;
+use App\Entity\Vat\VatCountry;
+use App\Entity\Brand\Gallagher;
 use PHPUnit\Framework\TestCase;
 
 class OrderTest extends TestCase
@@ -15,10 +16,9 @@ class OrderTest extends TestCase
     public function setUp(): void
     {
 
-        $france = new Pays('FR');
-
-        $farmitoo = new Farmitoo($france);
-        $gallagher = new Gallagher();
+        $vatFrance = new VatCountry(1.20);
+        $farmitoo = new Farmitoo($vatFrance);
+        $gallagher = new Gallagher($vatFrance);
 
         $product1 = new Product('Cuve à gasoil', 250000, $farmitoo);
         $product2 = new Product('Nettoyant pour cuve', 5000, $farmitoo);

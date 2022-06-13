@@ -2,10 +2,7 @@
 
 namespace App\Entity\Vat;
 
-class VatInterface
+interface VatInterface
 {
-    public function getVat(): ?int
-    {
-        return $this->vat;
-    }
+    public function getVat(): ?float;
 }

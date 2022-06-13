@@ -5,11 +5,12 @@ namespace App\Tests\Unit\Service;
 use App\Entity\Pays;
 use App\Entity\Order;
 use App\Entity\Product;
-use App\Entity\Brand\Farmitoo;
-use App\Entity\Brand\Gallagher;
 use App\Entity\Promotion;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Entity\Brand\Farmitoo;
+use App\Entity\Vat\VatCountry;
+use App\Entity\Brand\Gallagher;
 use App\Service\Order\OrderTransportService;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class OrderTransportServicePhpTest extends KernelTestCase
 {
@@ -17,10 +18,9 @@ class OrderTransportServicePhpTest extends KernelTestCase
 
     public function setUp(): void
     {
-        $france = new Pays('FR');
-
-        $farmitoo = new Farmitoo($france);
-        $gallagher = new Gallagher();
+        $vatFrance = new VatCountry(1.20);
+        $farmitoo = new Farmitoo($vatFrance);
+        $gallagher = new Gallagher($vatFrance);
         $product1 = new Product('Cuve à gasoil', 250000, $farmitoo);
         $product2 = new Product('Nettoyant pour cuve', 5000, $farmitoo);
         $product3 = new Product('Piquet de clôture', 1000, $gallagher);

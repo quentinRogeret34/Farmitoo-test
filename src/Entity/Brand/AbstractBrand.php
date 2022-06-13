@@ -2,7 +2,7 @@
 
 namespace App\Entity\Brand;
 
-use App\Entity\Pays;
+use App\Entity\Vat\VatInterface;
 
 abstract class AbstractBrand
 {
@@ -11,10 +11,10 @@ abstract class AbstractBrand
 
     protected $pays;
 
-    public function __construct(Pays $pays = null)
+    public function __construct(VatInterface $vat)
     {
         $this->name = $this->getName();
-        $this->pays = $pays;
+        $this->vat = $vat;
     }
 
     public function getName()
@@ -22,8 +22,8 @@ abstract class AbstractBrand
         return $this->name;
     }
 
-    public function getPays()
+    public function getVat(): float
     {
-        return $this->pays;
+        return $this->vat->getVat();
     }
 }

@@ -6,14 +6,15 @@ use App\Entity\Pays;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\Brand\Farmitoo;
+use App\Entity\Vat\VatBrand;
 use PHPUnit\Framework\TestCase;
 
 class FarmitooTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->farmitoo = new Farmitoo();
-        $this->farmitooWithPays = new Farmitoo(new Pays('BE'));
+        $this->farmitoo = new Farmitoo(new VatBrand(1.20));
+        $this->farmitooWithPays = new Farmitoo(new VatBrand(1.20));
     }
 
     public function testGetName()

@@ -8,6 +8,8 @@ use App\Entity\Product;
 use App\Entity\Brand\Farmitoo;
 use App\Entity\Brand\Gallagher;
 use App\Entity\Promotion;
+use App\Entity\Vat\VatBrand;
+use App\Entity\Vat\VatCountry;
 use App\Service\Order\OrderPriceService;
 use App\Service\Order\OrderTransportService;
 use App\Service\Order\OrderVatService;
@@ -31,10 +33,11 @@ class CartController extends AbstractController
         // Nettoyant pour cuve x3
         // Piquet de clôture x5
 
-        $france = new Pays('FR');
+        $vatCrountry = new VatCountry(1.20);
+        $vatBrand = new VatBrand(1.20);
 
-        $farmitoo = new Farmitoo($france);
-        $gallagher = new Gallagher($france);
+        $farmitoo = new Farmitoo($vatCrountry);
+        $gallagher = new Gallagher($vatBrand);
 
         $product1 = new Product('Cuve à gasoil', 250000, $farmitoo);
         $product2 = new Product('Nettoyant pour cuve', 5000, $farmitoo);
